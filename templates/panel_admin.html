@@ -1,0 +1,48 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../static/show.css">
+
+<body>
+    {%include 'bar_2.html'%}
+    <div class="container mt-5">
+
+        <h2>Panel de Administrador</h2>
+
+        <!-- Botón para crear nuevo producto -->
+        <a href="/crear_producto" class="btn btn-primary mb-3">Crear Nuevo</a>
+    
+        <!-- Tabla de productos -->
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Nombre del Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr class="align-middle text-center">
+                        <td>{{ producto.codigo }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>${{ producto.precio }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td><img src="{{ url_for('static', filename=producto.imagen_url) }}" alt="{{ producto.descripcion }}"></td>
+                        <td>
+                            <!-- Botones de acciones -->
+                            <a href="/editar_producto/{{ producto.codigo}}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="#" onclick="confirmarEliminacion('{{ producto.codigo }}')" class="btn btn-danger btn-sm">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        <!-- Bootstrap JavaScript (opcional, para características interactivas) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../static/panel_admin.js"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+    <link rel="stylesheet" href="https://www.pythonanywhere.com/user/living4ya/files/home/living4ya/mysite/static/show.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Playpen+Sans:wght@400;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="../Carro_de_compras/static/iconoperro.ico" type="image/x-icon">
+</head>
+
+<body>
+    {% if session['rol'] == 'usuario' %}
+        <!-- Barra de navegación para usuarios -->
+        {% include 'bar_3.html' %}
+    {% elif session['rol'] == 'admin' %}
+        <!-- Barra de navegación para administradores -->
+        {% include 'bar_2.html' %}
+
+    {%elif session['rol'] != 'admin' and 'usuario'%}
+        {% include 'bar.html' %}
+    {% endif %}
+    <div class="contenedor">
+    <div class="contenedor_presentacion">
+        <div class="presentacion">
+            <h4 class="titulo"> Yo, <strong>Juan Martin Aguilar</strong>, entiendo que tu vínculo con tu perro es especial, y por eso me dedico a ofrecer productos y servicios que enriquecerán esa conexión única.</h4>
+
+            <h5 class="descripcion">Explora nuestro catálogo cuidadosamente seleccionado, lleno de productos que no solo cumplen con los estándares de calidad, sino que también están diseñados pensando en el bienestar de tu mascota.</h5>
+        </div>
+    </div>
+        <div class="ola" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+            <path d="M-45.43,-25.15 C57.28,179.10 296.55,-33.05 467.54,115.95 L544.30,173.18 L-14.39,165.28 Z" style="stroke: none; fill: #fff;"></path>
+        </svg></div>
+        
+    </div>
+
+    <div class="lista_productos">
+        <div class="container mt-5 pb-5">
+            <h2 class="mb-4 text-center">Productos</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for producto in productos %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ url_for('static', filename=producto.imagen_url) }}" class="card-img-top imagen_producto"
+                            alt="{{ producto.descripcion }}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ producto.descripcion }}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Código: {{ producto.codigo }}</li>
+                            <li class="list-group-item">Precio: ${{ producto.precio }}</li>
+                            <li class="list-group-item">Stock: {{ producto.stock }}</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>
